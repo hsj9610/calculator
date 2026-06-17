@@ -10,29 +10,54 @@ st.set_page_config(
     layout="centered"
 )
 
-# 배경 색상 리스트
-background_colors = [
-    "#FFE5E5",  # 연한 빨강
-    "#E5F2FF",  # 연한 파랑
-    "#E5FFE5",  # 연한 초록
-    "#FFF5E5",  # 연한 주황
-    "#F0E5FF",  # 연한 보라
-    "#FFE5F5",  # 연한 핑크
-    "#E5FFFF",  # 연한 청록
+# 멋진 배경 이미지 URL 리스트 (건축물, 자연풍경 등이 골고루 어우러짐)
+background_images = [
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop",  # 산 풍경
+    "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1200&h=800&fit=crop",  # 도시 야경
+    "https://images.unsplash.com/photo-1469022563149-aa64dbd37dae?w=1200&h=800&fit=crop",  # 자연 숲
+    "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&h=800&fit=crop",  # 현대 건축물
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=800&fit=crop",  # 풍경
+    "https://images.unsplash.com/photo-1486299967070-08de976cb1d8?w=1200&h=800&fit=crop",  # 도시 건축
+    "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1200&h=800&fit=crop",  # 자연 호수
+    "https://images.unsplash.com/photo-1479839672679-a46482f0e7c8?w=1200&h=800&fit=crop",  # 도시 풍경
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop",  # 산봉우리
+    "https://images.unsplash.com/photo-1470114716159-e389f8712fda?w=1200&h=800&fit=crop",  # 현대 건축
 ]
 
-# 현재 시간을 기반으로 배경색 선택 (5초마다 변경)
-current_color = background_colors[int(time.time() / 5) % len(background_colors)]
+# 현재 시간을 기반으로 배경이미지 선택 (5초마다 변경)
+current_image_index = int(time.time() / 5) % len(background_images)
+current_background = background_images[current_image_index]
 
-# CSS로 배경색 적용
+# CSS로 배경이미지 적용
 st.markdown(f"""
     <style>
         .stApp {{
-            background-color: {current_color};
-            transition: background-color 0.5s ease-in-out;
+            background-image: url('{current_background}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-image 0.5s ease-in-out;
         }}
         body {{
-            background-color: {current_color};
+            background-image: url('{current_background}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }}
+        /* 콘텐츠 가독성을 위한 반투명 배경 */
+        [data-testid="stVerticalBlock"] > div {{
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+        }}
+        .element-container {{
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 15px;
+        }}
+        h1, h2, h3 {{
+            color: #1f77b4;
         }}
     </style>
     """, unsafe_allow_html=True)
