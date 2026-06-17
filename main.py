@@ -2,12 +2,49 @@ import streamlit as st
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 st.set_page_config(
     page_title="다기능 계산기",
     page_icon="🧮",
     layout="centered"
 )
+
+# 배경 색상 리스트
+background_colors = [
+    "#FFE5E5",  # 연한 빨강
+    "#E5F2FF",  # 연한 파랑
+    "#E5FFE5",  # 연한 초록
+    "#FFF5E5",  # 연한 주황
+    "#F0E5FF",  # 연한 보라
+    "#FFE5F5",  # 연한 핑크
+    "#E5FFFF",  # 연한 청록
+]
+
+# 현재 시간을 기반으로 배경색 선택 (5초마다 변경)
+current_color = background_colors[int(time.time() / 5) % len(background_colors)]
+
+# CSS로 배경색 적용
+st.markdown(f"""
+    <style>
+        .stApp {{
+            background-color: {current_color};
+            transition: background-color 0.5s ease-in-out;
+        }}
+        body {{
+            background-color: {current_color};
+        }}
+    </style>
+    """, unsafe_allow_html=True)
+
+# 페이지 새로고침 (5초마다)
+st.markdown("""
+    <script>
+        setInterval(function() {{
+            location.reload();
+        }}, 5000);
+    </script>
+    """, unsafe_allow_html=True)
 
 st.title("🧮 다기능 계산기 웹앱")
 st.write("사칙연산 / 모듈러 / 지수 / 로그 계산 / 함수 그래프")
